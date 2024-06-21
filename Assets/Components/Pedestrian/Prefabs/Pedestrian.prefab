@@ -453,7 +453,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1814944343253334053}
   - component: {fileID: 6088084667883545296}
+  - component: {fileID: 6778991584415687253}
   - component: {fileID: -5709400457363142463}
+  - component: {fileID: 3165890538358647723}
+  - component: {fileID: 1734510080642554251}
   m_Layer: 0
   m_Name: Pedestrian
   m_TagString: Untagged
@@ -499,6 +502,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!143 &6778991584415687253
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-5709400457363142463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +538,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa5ab5eea969ce8469e8fa17b87edf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3165890538358647723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253155434508dab44af000e15f7fd653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minMoveSpeed: 0.75
+  _maxMoveSpeed: 5
+  _stopDistance: 1
+  _rotationSpeed: 120
+  _debugPointName: 
+--- !u!114 &1734510080642554251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9254974d405e92841bf4b7e99e7b875f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3578223734851504263

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace PedestrianSpace
 {
     [RequireComponent(typeof(PedestrianMovement))]
-    public class PedestrianNavigation : MonoBehaviour
+    public class PedestrianNavigation : EntityNavigation
     {
         private WayPoint _currentWayPoint;
         private Pedestrian _pedestrian;
@@ -76,12 +76,12 @@ namespace PedestrianSpace
             }
         }
 
-        public void SetCurrentWayPoint(WayPoint wayPoint)
+        public override void SetCurrentWayPoint(WayPoint wayPoint)
         {
             _currentWayPoint = wayPoint;
         }
         
-        public void SetDirection(int direction)
+        public override void SetDirection(int direction)
         {
             _direction = direction;
         }

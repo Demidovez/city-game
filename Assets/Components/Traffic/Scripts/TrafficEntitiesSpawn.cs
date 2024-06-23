@@ -28,7 +28,7 @@ namespace TrafficSpace
                 wayPointTransform.TryGetComponent(out WayPoint wayPoint);
                 
                 GameObject entityObj = Instantiate(_entityPrefab, wayPointTransform.position, wayPointTransform.rotation, _entitiesContainer);
-                entityObj.TryGetComponent(out PedestrianNavigation entityNavigation);
+                entityObj.TryGetComponent(out EntityNavigation entityNavigation);
                 entityNavigation.SetCurrentWayPoint(wayPoint);
                 entityNavigation.SetDirection(count % 2);
 

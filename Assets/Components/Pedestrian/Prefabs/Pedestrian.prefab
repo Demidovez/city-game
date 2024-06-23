@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minMoveSpeed: 0.75
-  _maxMoveSpeed: 5
+  _maxMoveSpeed: 1.5
   _stopDistance: 1
   _rotationSpeed: 120
   _debugPointName: 

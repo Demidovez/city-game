@@ -38,6 +38,13 @@ namespace PedestrianSpace
                 {
                     _currentWayPoint = _currentWayPoint.Branches[Random.Range(0, _currentWayPoint.Branches.Count - 1)];
                 }
+                else if (_currentWayPoint.IsCrossingRoad)
+                {
+                    if (_currentWayPoint.Next)
+                    {
+                        _currentWayPoint = _currentWayPoint.Next;
+                    }
+                }
                 else if (_direction == 0)
                 {
                     if (_currentWayPoint.Next)

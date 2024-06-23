@@ -31,10 +31,14 @@ namespace WayPointsSpace
 
             if (wayPoint.Branches != null)
             {
+                Gizmos.color = Color.blue;
+                
                 foreach (WayPoint branch in wayPoint.Branches)
                 {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawLine(wayPoint.transform.position, branch.transform.position);
+                    if (branch)
+                    {
+                        Gizmos.DrawLine(wayPoint.transform.position, branch.transform.position);
+                    }
                 }
             }
         }

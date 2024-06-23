@@ -15,6 +15,7 @@ namespace PedestrianSpace
         [SerializeField] private string _debugPointName;
         
         private Vector3 _destination;
+        private Pedestrian _pedestrian;
         private CharacterController _characterController;
         private float _movementSpeed;
 
@@ -23,11 +24,19 @@ namespace PedestrianSpace
         private void Start()
         {
             _characterController = GetComponent<CharacterController>();
+            _pedestrian = GetComponent<Pedestrian>();
             _movementSpeed = Random.Range(_minMoveSpeed, _maxMoveSpeed);
         }
 
         private void Update()
         {
+            if (_pedestrian.ShouldStopAndWait)
+            {
+                _characterController.Move(Vector3.zero);
+                
+                return;
+            }
+            
             if (transform.position != _destination)
             {
                 Vector3 destinationDirection = _destination - transform.position;

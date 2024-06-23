@@ -10,11 +10,13 @@ namespace PedestrianSpace
     public class PedestrianNavigation : MonoBehaviour
     {
         private WayPoint _currentWayPoint;
+        private Pedestrian _pedestrian;
         private PedestrianMovement _pedestrianMovement;
         private int _direction;
 
         private void Awake()
         {
+            _pedestrian = GetComponent<Pedestrian>();
             _pedestrianMovement = GetComponent<PedestrianMovement>();
         }
 
@@ -86,6 +88,7 @@ namespace PedestrianSpace
 
         private void SetDestination(WayPoint wayPoint)
         {
+            _pedestrian.WantGoCrossRoad = wayPoint.IsCrossingRoad;
             _pedestrianMovement.SetDestination(wayPoint.GetPosition(), wayPoint.name);
         }
     }

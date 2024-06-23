@@ -9,9 +9,10 @@ namespace WayPointsSpace
         [DrawGizmo(GizmoType.NonSelected | GizmoType.Selected | GizmoType.Pickable)]
         public static void OnDrawSceneGizmo(WayPoint wayPoint, GizmoType gizmoType)
         {
+            bool hasBranches = wayPoint.Branches?.Count > 0;
             bool isSelected = (gizmoType & GizmoType.Selected) != 0;
             
-            Gizmos.color = Color.yellow * (isSelected ? 1 : 0.5f);
+            Gizmos.color = (hasBranches ? Color.blue : Color.yellow) * (isSelected ? 1 : 0.5f);
             Gizmos.DrawSphere(wayPoint.transform.position, 0.1f);
             
             Gizmos.color = Color.white;
@@ -29,7 +30,7 @@ namespace WayPointsSpace
                 Gizmos.DrawLine(wayPoint.LeftEdge, wayPoint.Next.LeftEdge);
             }
 
-            if (wayPoint.Branches != null)
+            if (hasBranches)
             {
                 Gizmos.color = Color.blue;
                 

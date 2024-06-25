@@ -453,7 +453,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1814944343253334053}
   - component: {fileID: 6088084667883545296}
-  - component: {fileID: 6778991584415687253}
+  - component: {fileID: 7094557353255767933}
+  - component: {fileID: -8932248697528796943}
+  - component: {fileID: 3384708627095802324}
   - component: {fileID: -5709400457363142463}
   - component: {fileID: 3165890538358647723}
   - component: {fileID: 1734510080642554251}
@@ -502,8 +504,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!143 &6778991584415687253
-CharacterController:
+--- !u!136 &7094557353255767933
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -517,17 +519,63 @@ CharacterController:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
+  m_Radius: 0.26129848
   m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.002958715, y: 1, z: 0}
+--- !u!195 &-8932248697528796943
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  m_Enabled: 1
+  m_AgentTypeID: 0
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.0001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &3384708627095802324
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &-5709400457363142463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,8 +602,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minMoveSpeed: 0.75
   _maxMoveSpeed: 1.5
-  _stopDistance: 1
-  _rotationSpeed: 120
   _debugPointName: 
 --- !u!114 &1734510080642554251
 MonoBehaviour:

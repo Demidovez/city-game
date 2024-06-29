@@ -1,91 +1,59 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerSpace
 {
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
+        public static PlayerMovement Instance;
+        
         [SerializeField] private float _speed;
         [SerializeField] private float _mouseSensitivity = 100f;
         [SerializeField] private float _gravity = -9.81f;
         [SerializeField] private float _gravityForce = 1f;
         [SerializeField] private float _jumpHeight = 1.0f;
         [SerializeField] private Transform _cameraTransform;
-
-        public static PlayerMovement Instance;
+        [SerializeField] private float _animSmoothTime = 1f;
         
-        public float HorizontalMove { get; private set; }
-        public float VerticalMove { get; private set; }
+        public Vector2 MoveInput { get; set; }
+        public Vector2 CurrentBlendAnim { get; private set; }
 
         private CharacterController _characterController;
         private Vector3 _velocity;
         private float _rotationX;
         private float _rotationY;
         private Vector3 _movement;
+        private Vector2 _animVelocity;
 
         private void Awake()
         {
             Instance = this;
-        }
 
-        private void Start()
-        {
             _characterController = GetComponent<CharacterController>();
-        }
-
-        private void Update()
-        {
-            float moveX = Input.GetAxis("Horizontal");
-            float moveZ = Input.GetAxis("Vertical");
-
-            bool isStoppingMoveX = Input.GetAxisRaw("Horizontal") == 0;
-            bool isStoppingMoveZ = Input.GetAxisRaw("Vertical") == 0;
-
-            float correctMoveX = GetCorrectMoveAxis(isStoppingMoveX, moveX);
-            float correctMoveZ = GetCorrectMoveAxis(isStoppingMoveZ, moveZ);
-            
-            _movement = transform.right * correctMoveX + transform.forward * correctMoveZ;
-            
-            if(_movement.magnitude > 1) {
-                _movement.Normalize();
-            }
-
-            if (!_characterController.isGrounded)
-            {
-                HorizontalMove = Mathf.Lerp(HorizontalMove, 0, 3f * Time.deltaTime);
-                VerticalMove = Mathf.Lerp(VerticalMove, -10, 3f * Time.deltaTime);
-            } else {
-                float forceX = isStoppingMoveX ? 1f : 2f;
-                float forceZ = isStoppingMoveZ ? 1f : 2f;
-                
-                HorizontalMove = Mathf.Clamp(correctMoveX * forceX, -1, 1);
-                VerticalMove = Mathf.Clamp(correctMoveZ * forceZ, -1, 1);
-            }
         }
         
         private void FixedUpdate()
         {
             Movement();
-            Jump();
             ApplyGravity();
+            UpdateAnimBlend();
             
             Rotation();
         }
 
-        private static float GetCorrectMoveAxis(bool isStopping, float move)
+        private void Movement()
         {
-            if (!isStopping)
-            {
-                return move;
+            _movement = _cameraTransform.right * MoveInput.x + _cameraTransform.forward * MoveInput.y;
+            
+            if(_movement.magnitude > 1) {
+                _movement.Normalize();
             }
             
-            if (move >= 0)
-            {
-                return Mathf.Clamp(move - 0.5f, 0, 1);
-            }
-            
-            return Mathf.Clamp(move + 0.5f, -1, 0);
+            _movement.y = 0;
+
+            _characterController.Move(_movement * (_speed * Time.fixedDeltaTime * (MoveInput.y < 0 ? 0.5f : 1f)));
         }
 
         private void ApplyGravity()
@@ -96,9 +64,28 @@ namespace PlayerSpace
             }
             else
             {
-                _velocity.y += _gravity * Time.deltaTime;
-                _characterController.Move(_velocity * (Time.deltaTime * _gravityForce));
+                _velocity.y += _gravity * Time.fixedDeltaTime;
+                _characterController.Move(_velocity * (Time.fixedDeltaTime * _gravityForce));
             }
+        }
+
+        private void UpdateAnimBlend()
+        {
+            Vector2 target;
+            float speed;
+            
+            if (!_characterController.isGrounded)
+            {
+                target = new Vector2(0, -10);
+                speed = (_animSmoothTime / 0.1f) * Time.fixedDeltaTime;
+            }
+            else
+            {
+                target = MoveInput;
+                speed = _animSmoothTime * Time.fixedDeltaTime;
+            }
+            
+            CurrentBlendAnim = Vector2.SmoothDamp(CurrentBlendAnim, target, ref _animVelocity, speed);
         }
 
         private void Rotation()
@@ -116,19 +103,11 @@ namespace PlayerSpace
             _cameraTransform.localRotation =  Quaternion.Euler(_rotationX, 0f, 0f);
         }
         
-        private void Jump()
+        public void Jump()
         {
-            if (_characterController.isGrounded && Input.GetAxisRaw("Jump") > 0)
+            if (_characterController.isGrounded)
             {
                 _velocity.y = Mathf.Sqrt(_jumpHeight * -3 * _gravity);
-            }
-        }
-
-        private void Movement()
-        {
-            if (_movement != Vector3.zero)
-            {
-                _characterController.Move(_movement * (_speed * Time.fixedDeltaTime * (VerticalMove < 0 ? 0.5f : 1f)));
             }
         }
     }

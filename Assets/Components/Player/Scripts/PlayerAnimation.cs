@@ -15,8 +15,8 @@ namespace PlayerSpace
 
         private void Update()
         {
-            _animator.SetFloat("Horizontal", PlayerMovement.Instance.HorizontalMove);
-            _animator.SetFloat("Vertical", PlayerMovement.Instance.VerticalMove);
+            _animator.SetFloat("Horizontal", PlayerMovement.Instance.CurrentBlendAnim.x);
+            _animator.SetFloat("Vertical", PlayerMovement.Instance.CurrentBlendAnim.y);
         }
     }
 }

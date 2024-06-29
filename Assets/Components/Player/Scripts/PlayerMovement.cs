@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace PlayerSpace
 {
@@ -18,6 +16,9 @@ namespace PlayerSpace
         [SerializeField] private float _animSmoothTime = 1f;
         
         public Vector2 MoveInput { get; set; }
+        public Vector2 MouseLook { get; set; }
+        public bool Slowly { get; set; }
+        
         public Vector2 CurrentBlendAnim { get; private set; }
 
         private CharacterController _characterController;
@@ -53,7 +54,9 @@ namespace PlayerSpace
             
             _movement.y = 0;
 
-            _characterController.Move(_movement * (_speed * Time.fixedDeltaTime * (MoveInput.y < 0 ? 0.5f : 1f)));
+            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (Slowly ? 0.5f : 1f);
+
+            _characterController.Move(_movement * (resultSpeed * Time.fixedDeltaTime));
         }
 
         private void ApplyGravity()
@@ -81,7 +84,7 @@ namespace PlayerSpace
             }
             else
             {
-                target = MoveInput;
+                target = MoveInput * (Slowly ? 0.9f : 1f);
                 speed = _animSmoothTime * Time.fixedDeltaTime;
             }
             
@@ -92,11 +95,9 @@ namespace PlayerSpace
         {
             float sensitive = _mouseSensitivity * Time.deltaTime;
             
-            float mouseX = Input.GetAxis("Mouse X") * sensitive;
-            float mouseY = Input.GetAxis("Mouse Y") * sensitive;
+            _rotationY += MouseLook.x * sensitive;
+            _rotationX -= MouseLook.y * sensitive;
             
-            _rotationY += mouseX;
-            _rotationX -= mouseY;
             _rotationX = Mathf.Clamp(_rotationX, -60f, 60f);
             
             transform.localRotation = Quaternion.Euler(0f, _rotationY, 0f);

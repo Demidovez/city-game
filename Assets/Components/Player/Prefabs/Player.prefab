@@ -1850,12 +1850,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _mouseSensitivity: 200
+  _mouseSensitivity: 10
   _gravity: -9.81
   _gravityForce: 2
   _jumpHeight: 1
   _cameraTransform: {fileID: 5588937948636999815}
-  _animSmoothTime: 0.2
+  _animSmoothTime: 3
 --- !u!114 &-6576714188984521538
 MonoBehaviour:
   m_ObjectHideFlags: 0

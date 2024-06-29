@@ -15,14 +15,14 @@ namespace PlayerSpace
 
         public static PlayerMovement Instance;
         
-        public bool IsRunning { get; private set; }
-        public bool IsJumping { get; private set; }
-        public bool IsFalling { get; private set; }
+        public float HorizontalMove { get; private set; }
+        public float VerticalMove { get; private set; }
 
         private CharacterController _characterController;
         private Vector3 _velocity;
         private float _rotationX;
         private float _rotationY;
+        private Vector3 _movement;
 
         private void Awake()
         {
@@ -33,6 +33,36 @@ namespace PlayerSpace
         {
             _characterController = GetComponent<CharacterController>();
         }
+
+        private void Update()
+        {
+            float moveX = Input.GetAxis("Horizontal");
+            float moveZ = Input.GetAxis("Vertical");
+
+            bool isStoppingMoveX = Input.GetAxisRaw("Horizontal") == 0;
+            bool isStoppingMoveZ = Input.GetAxisRaw("Vertical") == 0;
+
+            float correctMoveX = GetCorrectMoveAxis(isStoppingMoveX, moveX);
+            float correctMoveZ = GetCorrectMoveAxis(isStoppingMoveZ, moveZ);
+            
+            _movement = transform.right * correctMoveX + transform.forward * correctMoveZ;
+            
+            if(_movement.magnitude > 1) {
+                _movement.Normalize();
+            }
+
+            if (!_characterController.isGrounded)
+            {
+                HorizontalMove = Mathf.Lerp(HorizontalMove, 0, 3f * Time.deltaTime);
+                VerticalMove = Mathf.Lerp(VerticalMove, -10, 3f * Time.deltaTime);
+            } else {
+                float forceX = isStoppingMoveX ? 1f : 2f;
+                float forceZ = isStoppingMoveZ ? 1f : 2f;
+                
+                HorizontalMove = Mathf.Clamp(correctMoveX * forceX, -1, 1);
+                VerticalMove = Mathf.Clamp(correctMoveZ * forceZ, -1, 1);
+            }
+        }
         
         private void FixedUpdate()
         {
@@ -41,6 +71,21 @@ namespace PlayerSpace
             ApplyGravity();
             
             Rotation();
+        }
+
+        private static float GetCorrectMoveAxis(bool isStopping, float move)
+        {
+            if (!isStopping)
+            {
+                return move;
+            }
+            
+            if (move >= 0)
+            {
+                return Mathf.Clamp(move - 0.5f, 0, 1);
+            }
+            
+            return Mathf.Clamp(move + 0.5f, -1, 0);
         }
 
         private void ApplyGravity()
@@ -54,8 +99,6 @@ namespace PlayerSpace
                 _velocity.y += _gravity * Time.deltaTime;
                 _characterController.Move(_velocity * (Time.deltaTime * _gravityForce));
             }
-            
-            IsFalling = !_characterController.isGrounded && _velocity.y < -2f;
         }
 
         private void Rotation()
@@ -75,31 +118,17 @@ namespace PlayerSpace
         
         private void Jump()
         {
-            if (_characterController.isGrounded && (Input.GetAxisRaw("Jump") > 0))
+            if (_characterController.isGrounded && Input.GetAxisRaw("Jump") > 0)
             {
-                IsJumping = true;
-                _velocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravity);
-            } else if (IsJumping && _velocity.y < 0)
-            {
-                IsJumping = false;
+                _velocity.y = Mathf.Sqrt(_jumpHeight * -3 * _gravity);
             }
         }
 
         private void Movement()
         {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveZ = Input.GetAxisRaw("Vertical");
-            
-            Vector3 move = transform.right * moveX + transform.forward * moveZ;
-
-            if (move != Vector3.zero)
+            if (_movement != Vector3.zero)
             {
-                IsRunning = true;
-                _characterController.Move(move.normalized * (_speed * Time.deltaTime));
-            }
-            else
-            {
-                IsRunning = false;
+                _characterController.Move(_movement * (_speed * Time.fixedDeltaTime * (VerticalMove < 0 ? 0.5f : 1f)));
             }
         }
     }

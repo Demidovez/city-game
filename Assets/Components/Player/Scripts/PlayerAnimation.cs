@@ -15,9 +15,8 @@ namespace PlayerSpace
 
         private void Update()
         {
-            _animator.SetBool("IsRunning", Player.Instance.IsRunning);
-            _animator.SetBool("IsJumping", Player.Instance.IsJumping);
-            _animator.SetBool("IsFalling", Player.Instance.IsFalling);
+            _animator.SetFloat("Horizontal", PlayerMovement.Instance.HorizontalMove);
+            _animator.SetFloat("Vertical", PlayerMovement.Instance.VerticalMove);
         }
     }
 }

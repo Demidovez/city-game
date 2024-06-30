@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerSpace
@@ -8,15 +9,14 @@ namespace PlayerSpace
         public static PlayerMovement Instance;
         
         [SerializeField] private float _speed;
-        [SerializeField] private float _mouseSensitivity = 100f;
         [SerializeField] private float _gravity = -9.81f;
         [SerializeField] private float _gravityForce = 1f;
         [SerializeField] private float _jumpHeight = 1.0f;
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private float _animSmoothTime = 1f;
+        [SerializeField] private float _rotationSpeed = 2f;
         
         public Vector2 MoveInput { get; set; }
-        public Vector2 MouseLook { get; set; }
         public bool Slowly { get; set; }
         
         public Vector2 CurrentBlendAnim { get; private set; }
@@ -40,7 +40,10 @@ namespace PlayerSpace
             Movement();
             ApplyGravity();
             UpdateAnimBlend();
-            
+        }
+
+        private void LateUpdate()
+        {
             Rotation();
         }
 
@@ -54,7 +57,7 @@ namespace PlayerSpace
             
             _movement.y = 0;
 
-            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (Slowly ? 0.5f : 1f);
+            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (Slowly ? 0.3f : 1f);
 
             _characterController.Move(_movement * (resultSpeed * Time.fixedDeltaTime));
         }
@@ -84,25 +87,18 @@ namespace PlayerSpace
             }
             else
             {
-                target = MoveInput * (Slowly ? 0.9f : 1f);
+                target = MoveInput;
                 speed = _animSmoothTime * Time.fixedDeltaTime;
             }
             
             CurrentBlendAnim = Vector2.SmoothDamp(CurrentBlendAnim, target, ref _animVelocity, speed);
         }
-
+        
         private void Rotation()
         {
-            float sensitive = _mouseSensitivity * Time.deltaTime;
-            
-            _rotationY += MouseLook.x * sensitive;
-            _rotationX -= MouseLook.y * sensitive;
-            
-            _rotationX = Mathf.Clamp(_rotationX, -60f, 60f);
-            
-            transform.localRotation = Quaternion.Euler(0f, _rotationY, 0f);
-            _cameraTransform.localRotation =  Quaternion.Euler(_rotationX, 0f, 0f);
-        }
+            Quaternion rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
+        } 
         
         public void Jump()
         {

@@ -17,6 +17,7 @@ namespace PlayerSpace
         {
             _animator.SetFloat("Horizontal", PlayerMovement.Instance.CurrentBlendAnim.x);
             _animator.SetFloat("Vertical", PlayerMovement.Instance.CurrentBlendAnim.y);
+            _animator.SetBool("Slowly", PlayerMovement.Instance.Slowly);
         }
     }
 }

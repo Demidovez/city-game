@@ -13,7 +13,6 @@ namespace InputActionsSpace
         private InputAction _actionJump;
         private InputAction _actionSlowly;
         private InputAction _actionShoot;
-        private InputAction _actionMouseLook;
         
         private void Awake()
         {
@@ -23,7 +22,6 @@ namespace InputActionsSpace
             _actionJump = _playerInput.actions["Jump"];
             _actionSlowly = _playerInput.actions["Slowly"];
             _actionShoot = _playerInput.actions["Shoot"];
-            _actionMouseLook = _playerInput.actions["MouseLook"];
         }
         
         private void OnEnable()
@@ -35,7 +33,6 @@ namespace InputActionsSpace
         private void Update()
         {
             PlayerMovement.Instance.MoveInput = _actionMove.ReadValue<Vector2>();
-            PlayerMovement.Instance.MouseLook = _actionMouseLook.ReadValue<Vector2>();
             PlayerMovement.Instance.Slowly = _actionSlowly.IsPressed();
         }
 
@@ -43,6 +40,8 @@ namespace InputActionsSpace
         {
             PlayerMovement.Instance.Jump();
         }
+
+        private int count;
 
         private void Shooting(InputAction.CallbackContext obj)
         {

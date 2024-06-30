@@ -9,31 +9,38 @@ namespace InputActionsSpace
     public class InputActionsManager : MonoBehaviour
     {
         private PlayerInput _playerInput;
-        private InputAction _actionMove;
+        private InputAction _actionRun;
         private InputAction _actionJump;
-        private InputAction _actionSlowly;
+        private InputAction _actionWalk;
         private InputAction _actionShoot;
         
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
             
-            _actionMove = _playerInput.actions["Move"];
+            _actionRun = _playerInput.actions["Run"];
             _actionJump = _playerInput.actions["Jump"];
-            _actionSlowly = _playerInput.actions["Slowly"];
+            _actionWalk = _playerInput.actions["Walk"];
             _actionShoot = _playerInput.actions["Shoot"];
         }
         
         private void OnEnable()
         {
+            _actionRun.performed += Run;
+            _actionRun.canceled += Run;
+            
             _actionShoot.performed += Shooting;
             _actionJump.performed += Jump;
         }
-
+        
         private void Update()
         {
-            PlayerMovement.Instance.MoveInput = _actionMove.ReadValue<Vector2>();
-            PlayerMovement.Instance.Slowly = _actionSlowly.IsPressed();
+            PlayerMovement.Instance.IsWalking = _actionWalk.IsPressed();
+        }
+        
+        private void Run(InputAction.CallbackContext obj)
+        {
+            PlayerMovement.Instance.MoveInput = obj.ReadValue<Vector2>();
         }
 
         private void Jump(InputAction.CallbackContext obj)
@@ -50,9 +57,11 @@ namespace InputActionsSpace
 
         private void OnDisable()
         {
+            _actionRun.performed -= Run;
+            _actionRun.canceled -= Run;
+            
             _actionShoot.performed -= Shooting;
             _actionJump.performed -= Jump;
         }
     }
-
 }

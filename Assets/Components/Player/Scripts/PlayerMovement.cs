@@ -13,38 +13,36 @@ namespace PlayerSpace
         [SerializeField] private float _gravityForce = 1f;
         [SerializeField] private float _jumpHeight = 1.0f;
         [SerializeField] private Transform _cameraTransform;
-        [SerializeField] private float _animSmoothTime = 1f;
+        
         [SerializeField] private float _rotationSpeed = 2f;
         
         public Vector2 MoveInput { get; set; }
-        public bool Slowly { get; set; }
-        
-        public Vector2 CurrentBlendAnim { get; private set; }
+        public bool IsWalking { get; set; }
+        public bool IsGrounded { get; private set; }
 
         private CharacterController _characterController;
-        private Vector3 _velocity;
+        private Vector3 _movement;
         private float _rotationX;
         private float _rotationY;
-        private Vector3 _movement;
-        private Vector2 _animVelocity;
+        private float _verticalVelocity;
 
         private void Awake()
         {
             Instance = this;
-
+            
             _characterController = GetComponent<CharacterController>();
         }
         
-        private void FixedUpdate()
+        private void Update()
         {
-            Movement();
             ApplyGravity();
-            Rotation();
+            ApplyRotation();
+            ApplyMovement();
             
-            UpdateAnimBlend();
+            IsGrounded = _characterController.isGrounded;
         }
 
-        private void Movement()
+        private void ApplyMovement()
         {
             _movement = _cameraTransform.right * MoveInput.x + _cameraTransform.forward * MoveInput.y;
             
@@ -52,46 +50,27 @@ namespace PlayerSpace
                 _movement.Normalize();
             }
             
-            _movement.y = 0;
+            _movement.y = -1f;
 
-            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (Slowly ? 0.3f : 1f);
-
-            _characterController.Move(_movement * (resultSpeed * Time.fixedDeltaTime));
+            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (IsWalking ? 0.3f : 1f);
+            
+            _characterController.Move(_movement * (resultSpeed * Time.deltaTime));
         }
 
         private void ApplyGravity()
         {
-            if (_characterController.isGrounded && _velocity.y < 0)
+            if (IsGrounded && _verticalVelocity < 0)
             {
-                _velocity.y = 0f;
+                _verticalVelocity = -1.0f;
             }
             else
             {
-                _velocity.y += _gravity * Time.fixedDeltaTime;
-                _characterController.Move(_velocity * (Time.fixedDeltaTime * _gravityForce));
+                _verticalVelocity += _gravity * Time.deltaTime;
+                _characterController.Move(Vector3.up * (_verticalVelocity * Time.deltaTime * _gravityForce));
             }
-        }
-
-        private void UpdateAnimBlend()
-        {
-            Vector2 target;
-            float speed;
-            
-            if (!_characterController.isGrounded)
-            {
-                target = new Vector2(0, -10);
-                speed = (_animSmoothTime / 0.1f) * Time.fixedDeltaTime;
-            }
-            else
-            {
-                target = MoveInput;
-                speed = _animSmoothTime * Time.fixedDeltaTime;
-            }
-            
-            CurrentBlendAnim = Vector2.SmoothDamp(CurrentBlendAnim, target, ref _animVelocity, speed);
         }
         
-        private void Rotation()
+        private void ApplyRotation()
         {
             Quaternion rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
@@ -99,9 +78,9 @@ namespace PlayerSpace
         
         public void Jump()
         {
-            if (_characterController.isGrounded)
+            if (IsGrounded)
             {
-                _velocity.y = Mathf.Sqrt(_jumpHeight * -3 * _gravity);
+                _verticalVelocity = Mathf.Sqrt(_jumpHeight * -3 * _gravity);
             }
         }
     }

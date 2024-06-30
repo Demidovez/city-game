@@ -23,9 +23,14 @@ namespace ObjectPoolSpace
         {
             _poolObjects = new List<GameObject>();
 
+            GameObject temp;
+            
             for (int i = 0; i < _amountToPool; i++)
             {
-                _poolObjects.Add(Instantiate(_prefabToPool, GameController.Instance.BulletsContainer, false));
+                temp = Instantiate(_prefabToPool, GameController.Instance.BulletsContainer);
+                temp.SetActive(false);
+                
+                _poolObjects.Add(temp);
             }
         }
 

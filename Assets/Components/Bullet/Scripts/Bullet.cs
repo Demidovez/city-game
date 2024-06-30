@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using GameControllerSpace;
 using UnityEngine;
 
 namespace BulletSpace
@@ -38,7 +39,9 @@ namespace BulletSpace
         {
             ContactPoint contact = collision.GetContact(0);
 
-            Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f, Quaternion.LookRotation(contact.normal));
+            GameObject decal = Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f, Quaternion.LookRotation(contact.normal));
+            decal.transform.SetParent(GameController.Instance.BulletsContainer);
+            
             gameObject.SetActive(false);
         }
     }

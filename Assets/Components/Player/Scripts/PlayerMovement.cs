@@ -52,7 +52,12 @@ namespace PlayerSpace
             
             _movement.y = -1f;
 
-            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f) * (IsWalking ? 0.3f : 1f);
+            float resultSpeed = _speed * (MoveInput.y < 0 ? 0.5f : 1f);
+
+            if (IsWalking && _verticalVelocity <= 0)
+            {
+                resultSpeed *= 0.3f;
+            }
             
             _characterController.Move(_movement * (resultSpeed * Time.deltaTime));
         }

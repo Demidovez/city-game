@@ -22,10 +22,7 @@ namespace PlayerSpace
 
         private void Update()
         {
-            if (!PlayerMovement.Instance.IsGrounded)
-            {
-                _targetAnimPosition = new Vector2(0f, -10f);
-            } else if (PlayerMovement.Instance.IsWalking)
+            if (PlayerMovement.Instance.IsWalking)
             {
                 _targetAnimPosition = new Vector2(0f, 2f);
             }
@@ -38,6 +35,7 @@ namespace PlayerSpace
             
             _animator.SetFloat("Horizontal", _currentBlendAnim.x);
             _animator.SetFloat("Vertical", _currentBlendAnim.y);
+            _animator.SetBool("IsGrounded", PlayerMovement.Instance.IsGrounded);
         }
     }
 }

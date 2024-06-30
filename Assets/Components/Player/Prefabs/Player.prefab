@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007d4f80025fd4c4e9b9c306f9a99644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animSmoothTime: 5
 --- !u!1 &1526905574479541340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,10 +1088,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _gravity: -9.81
-  _gravityForce: 2
-  _jumpHeight: 1
+  _gravityForce: 3
+  _jumpHeight: 1.5
   _cameraTransform: {fileID: 0}
-  _animSmoothTime: 3
   _rotationSpeed: 10
 --- !u!114 &7787298357885680372
 MonoBehaviour:

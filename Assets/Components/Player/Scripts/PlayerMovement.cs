@@ -39,12 +39,9 @@ namespace PlayerSpace
         {
             Movement();
             ApplyGravity();
-            UpdateAnimBlend();
-        }
-
-        private void LateUpdate()
-        {
             Rotation();
+            
+            UpdateAnimBlend();
         }
 
         private void Movement()

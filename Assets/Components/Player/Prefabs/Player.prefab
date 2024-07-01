@@ -1012,6 +1012,7 @@ GameObject:
   - component: {fileID: 6873930213829508098}
   - component: {fileID: 7212303802695180036}
   - component: {fileID: 7787298357885680372}
+  - component: {fileID: 6410921844627752428}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1106,6 +1107,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponTransform: {fileID: 488758011527034213}
   _bulletHitMiss: 25
+--- !u!114 &6410921844627752428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471117093870390583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a9891c7c1fbb548a2c6bfb1c93aaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ViewRadius: 10
+  ViewAngle: 90
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  VisibleTargets: []
 --- !u!1 &4496319750681292961
 GameObject:
   m_ObjectHideFlags: 0

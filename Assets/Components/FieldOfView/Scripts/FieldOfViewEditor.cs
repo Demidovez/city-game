@@ -28,7 +28,7 @@ namespace FieldOfViewSpace
 
             foreach (var visibleTarget in fov.VisibleTargets)
             {
-                Handles.DrawLine(fov.transform.position, visibleTarget.position, thickness);
+                Handles.DrawLine(fov.transform.position, visibleTarget.transform.position, thickness);
             }
         }
     }

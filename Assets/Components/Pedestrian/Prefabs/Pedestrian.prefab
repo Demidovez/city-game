@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: -5709400457363142463}
   - component: {fileID: 3165890538358647723}
   - component: {fileID: 1734510080642554251}
+  - component: {fileID: 5108078992965185856}
   m_Layer: 3
   m_Name: Pedestrian
   m_TagString: Untagged
@@ -613,6 +614,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9254974d405e92841bf4b7e99e7b875f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5108078992965185856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533345943198295405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae1c1375024ef04383b3b5c449fedf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3578223734851504263

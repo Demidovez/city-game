@@ -29,6 +29,7 @@ namespace PlayerSpace
         private void Awake()
         {
             Instance = this;
+            IsGrounded = true;
             
             _characterController = GetComponent<CharacterController>();
         }

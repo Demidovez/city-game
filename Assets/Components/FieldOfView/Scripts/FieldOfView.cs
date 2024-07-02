@@ -13,7 +13,7 @@ namespace FieldOfViewSpace
         public float ViewAngle;
 
         [SerializeField] private LayerMask _targetMask;
-        [SerializeField] private LayerMask _obstacleMask;
+        // [SerializeField] private LayerMask _obstacleMask;
         [SerializeField] private float _delayTimeFinding = 0.2f;
         public List<VisibleTarget> VisibleTargets;
 
@@ -54,6 +54,12 @@ namespace FieldOfViewSpace
             for (int i = 0; i < VisibleTargets.Count; i++)
             {
                 VisibleTarget target = VisibleTargets[i];
+
+                if (!target)
+                {
+                    VisibleTargets.RemoveAt(i);
+                    return;
+                }
             
                 if (!IsCurrentVisible(target))
                 {
@@ -75,9 +81,15 @@ namespace FieldOfViewSpace
             }
 
             Vector3 startRay = transform.position + Vector3.up;
-            bool isVisible = Physics.Raycast(startRay, directionToTarget, ViewRadius, _targetMask);
+            if (Physics.Raycast(startRay, directionToTarget, out RaycastHit hitInfo, ViewRadius))
+            {
+                if (hitInfo.collider.gameObject == target.gameObject)
+                {
+                    return true;
+                }
+            }
 
-            return isVisible;
+            return false;
         }
 
         public Vector3 DirectionFromAngle(float angleDegrees, bool isAngleGlobal)

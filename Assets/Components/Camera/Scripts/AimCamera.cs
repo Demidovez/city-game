@@ -11,13 +11,14 @@ namespace CameraSpace
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private int _priorityBoost = 10;
-
-        private CinemachineVirtualCamera _virtualCamera;
+        [SerializeField] private CinemachineVirtualCamera _secondCamera;
+        
+        private CinemachineVirtualCamera _aimCamera;
         private InputAction _aimAction;
 
         private void Awake()
         {
-            _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            _aimCamera = GetComponent<CinemachineVirtualCamera>();
 
             _aimAction = _playerInput.actions["Aim"];
         }
@@ -30,12 +31,14 @@ namespace CameraSpace
 
         private void CancelAim(InputAction.CallbackContext obj)
         {
-            _virtualCamera.Priority -= _priorityBoost;
+            _aimCamera.Priority -= _priorityBoost;
+            // _secondCamera.transform.position = _aimCamera.transform.position;
         }
 
         private void StartAim(InputAction.CallbackContext obj)
         {
-            _virtualCamera.Priority += _priorityBoost;
+            _aimCamera.Priority += _priorityBoost;
+            // _aimCamera.transform.position = _secondCamera.transform.position;
         }
 
         private void OnDisable()

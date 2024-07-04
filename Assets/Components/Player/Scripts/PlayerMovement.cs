@@ -78,6 +78,11 @@ namespace PlayerSpace
         
         private void ApplyRotation()
         {
+            if (MoveInput == Vector2.zero)
+            {
+                return;
+            }
+            
             Quaternion rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
         } 

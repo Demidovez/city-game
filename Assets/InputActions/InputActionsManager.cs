@@ -13,6 +13,11 @@ namespace InputActionsSpace
         private InputAction _actionJump;
         private InputAction _actionWalk;
         private InputAction _actionShoot;
+        private InputAction _actionEscape;
+        private InputAction _actionSimpleMovementMode;
+        private InputAction _actionShootingMovementMode;
+        
+        public static event Action OnPressedEscapeEvent;
         
         private void Awake()
         {
@@ -22,6 +27,9 @@ namespace InputActionsSpace
             _actionJump = _playerInput.actions["Jump"];
             _actionWalk = _playerInput.actions["Walk"];
             _actionShoot = _playerInput.actions["Shoot"];
+            _actionEscape = _playerInput.actions["Escape"];
+            _actionSimpleMovementMode = _playerInput.actions["SimpleMovementMode"];
+            _actionShootingMovementMode = _playerInput.actions["ShootingMovementMode"];
         }
         
         private void OnEnable()
@@ -31,11 +39,29 @@ namespace InputActionsSpace
             
             _actionShoot.performed += Shooting;
             _actionJump.performed += Jump;
+            _actionEscape.performed += Escape;
+            _actionSimpleMovementMode.performed += SimpleMovementMode;
+            _actionShootingMovementMode.performed += ShootingMovementMode;
         }
         
         private void Update()
         {
             PlayerMovement.Instance.IsWalking = _actionWalk.IsPressed();
+        }
+
+        private void SimpleMovementMode(InputAction.CallbackContext obj)
+        {
+            Player.Instance.IsShootingMode = false;
+        }
+        
+        private void ShootingMovementMode(InputAction.CallbackContext obj)
+        {
+            Player.Instance.IsShootingMode = true;
+        }
+
+        private void Escape(InputAction.CallbackContext obj)
+        {
+            OnPressedEscapeEvent?.Invoke();
         }
         
         private void Run(InputAction.CallbackContext obj)
@@ -62,6 +88,9 @@ namespace InputActionsSpace
             
             _actionShoot.performed -= Shooting;
             _actionJump.performed -= Jump;
+            _actionEscape.performed -= Escape;
+            _actionSimpleMovementMode.performed -= SimpleMovementMode;
+            _actionShootingMovementMode.performed -= ShootingMovementMode;
         }
     }
 }

@@ -18,6 +18,11 @@ namespace PlayerSpace
             _cameraTransform = Camera.main?.transform;
         }
 
+        private void Update()
+        {
+            _weaponTransform.gameObject.SetActive(Player.Instance.IsShootingMode);
+        }
+
         public void Shoot()
         {
             GameObject bulletObj = ObjectPool.Instance.GetPooledObject();
@@ -28,7 +33,7 @@ namespace PlayerSpace
             }
 
             bulletObj.transform.position = _weaponTransform.position;
-            bulletObj.transform.rotation = _weaponTransform.rotation;
+            bulletObj.transform.rotation = _cameraTransform.rotation;
                 
             bulletObj.SetActive(true);
             

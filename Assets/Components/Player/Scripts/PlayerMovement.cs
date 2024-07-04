@@ -18,6 +18,7 @@ namespace PlayerSpace
         
         public Vector2 MoveInput { get; set; }
         public bool IsWalking { get; set; }
+        
         public bool IsGrounded { get; private set; }
 
         private CharacterController _characterController;

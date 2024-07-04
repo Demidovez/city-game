@@ -9,6 +9,8 @@ namespace PlayerSpace
         public static Player Instance;
         
         private PlayerShooting _playerShooting;
+        
+        public bool IsShootingMode { get; set; }
 
         private void Awake()
         {
@@ -19,6 +21,11 @@ namespace PlayerSpace
 
         public void Shoot()
         {
+            if (!IsShootingMode)
+            {
+                return;
+            }
+            
             _playerShooting.Shoot();
         }
     }

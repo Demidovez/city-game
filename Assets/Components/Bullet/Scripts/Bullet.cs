@@ -5,23 +5,26 @@ using UnityEngine;
 
 namespace BulletSpace
 {
+    public delegate void OnBulletCollision(ContactPoint contact);
+    
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private GameObject _bulletDecal;
         [SerializeField] private float _speed = 20f;
-        [SerializeField] private float _bulletLifeTime = 5f;
+        [SerializeField] private float _lifeTime = 5f;
+
+        public OnBulletCollision OnBulletCollision;
         
         public Vector3 Target { get; set; }
         public bool Hit { get; set;  }
 
         private void OnEnable()
         {
-            StartCoroutine(DestroyBullet());
+            StartCoroutine(InactiveBullet());
         }
 
-        private IEnumerator DestroyBullet()
+        private IEnumerator InactiveBullet()
         {
-            yield return new WaitForSeconds(_bulletLifeTime);
+            yield return new WaitForSeconds(_lifeTime);
             gameObject.SetActive(false);
         }
 
@@ -38,9 +41,8 @@ namespace BulletSpace
         private void OnCollisionEnter(Collision collision)
         {
             ContactPoint contact = collision.GetContact(0);
-
-            GameObject decal = Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f, Quaternion.LookRotation(contact.normal));
-            decal.transform.SetParent(GameController.Instance.BulletsContainer);
+            
+            OnBulletCollision?.Invoke(contact);
             
             gameObject.SetActive(false);
         }

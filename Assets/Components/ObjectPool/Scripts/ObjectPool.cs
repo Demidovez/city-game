@@ -5,46 +5,44 @@ using UnityEngine;
 
 namespace ObjectPoolSpace
 {
-    public class ObjectPool : MonoBehaviour
+    public class ObjectPool
     {
-        public static ObjectPool Instance;
-        
-        [SerializeField] private GameObject _prefabToPool;
-        [SerializeField] private int _amountToPool;
-        
         private List<GameObject> _poolObjects;
+        private GameObject _prefabToPool;
+        private int _amountToPool;
 
-        private void Awake()
-        {
-            Instance = this;
-        }
-
-        private void Start()
+        public ObjectPool(GameObject prefabToPool, int amountToPool)
         {
             _poolObjects = new List<GameObject>();
+            _prefabToPool = prefabToPool;
+            _amountToPool = amountToPool;
 
             GameObject temp;
             
             for (int i = 0; i < _amountToPool; i++)
             {
-                temp = Instantiate(_prefabToPool, GameController.Instance.BulletsContainer);
+                temp = ObjectPoolManager.Instance.Instantiate(_prefabToPool);
                 temp.SetActive(false);
                 
                 _poolObjects.Add(temp);
             }
         }
-
+        
         public GameObject GetPooledObject()
         {
-            for (int i = 0; i < _amountToPool; i++)
+            foreach (var poolObject in _poolObjects)
             {
-                if (!_poolObjects[i].activeInHierarchy)
+                if (!poolObject.activeInHierarchy)
                 {
-                    return _poolObjects[i];
+                    return poolObject;
                 }
             }
 
-            return null;
+            GameObject temp = ObjectPoolManager.Instance.Instantiate(_prefabToPool);
+            temp.SetActive(false);
+            _poolObjects.Add(temp);
+            
+            return temp;
         }
     }
 }

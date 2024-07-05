@@ -180,6 +180,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e341cea0fdc6f4faec6bdc28710b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletDecal: {fileID: 1759235004775998740, guid: 1342aea9c25ff564e81177a306b97cff, type: 3}
-  _speed: 20
-  _bulletLifeTime: 5
+  _speed: 30
+  _lifeTime: 5

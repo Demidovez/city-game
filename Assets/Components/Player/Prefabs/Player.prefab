@@ -1110,6 +1110,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponTransform: {fileID: 2151662271024551318}
   _bulletHitMiss: 25
+  _prefabBulletToPool: {fileID: 7355943197447063899, guid: 9b2c606db30933347a01e4815dc22a2a, type: 3}
+  _prefabDecalToPool: {fileID: 1759235004775998740, guid: 1342aea9c25ff564e81177a306b97cff, type: 3}
+  _amountBulletsInPool: 20
+  _amountDecalsInPool: 20
 --- !u!114 &6410921844627752428
 MonoBehaviour:
   m_ObjectHideFlags: 0

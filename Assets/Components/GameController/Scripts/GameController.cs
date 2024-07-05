@@ -7,9 +7,6 @@ namespace GameControllerSpace
     public class GameController : MonoBehaviour
     {
         public static GameController Instance;
-        
-        [SerializeField] private Transform _bulletsContainer;
-        public Transform BulletsContainer => _bulletsContainer;
 
         public bool IsOpenedMenu { get; private set; }
 

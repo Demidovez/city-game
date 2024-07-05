@@ -14,6 +14,14 @@ namespace UtilsAreaSpace
                 subscriber.OnTriggerAreaEnter(gameObject, other);
             }
         }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (_triggerSubscriber.TryGetComponent(out ITriggerAreaSubscriber subscriber))
+            {
+                subscriber.OnTriggerAreaExit(gameObject, other);
+            }
+        }
     }
 }
 

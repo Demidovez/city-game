@@ -37,6 +37,7 @@ namespace PlayerSpace
             _animator.SetFloat("Vertical", _currentBlendAnim.y);
             _animator.SetBool("IsGrounded", PlayerMovement.Instance.IsGrounded);
             _animator.SetBool("IsShootingMode", Player.Instance.IsShootingMode);
+            _animator.SetBool("GetInCar", Player.Instance.GetInCar);
         }
     }
 }

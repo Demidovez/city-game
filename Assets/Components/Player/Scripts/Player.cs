@@ -11,6 +11,7 @@ namespace PlayerSpace
         private PlayerShooting _playerShooting;
         
         public bool IsShootingMode { get; set; }
+        public bool GetInCar { get; set; }
 
         private void Awake()
         {

@@ -2,7 +2,9 @@ using System;
 using CarSpace;
 using InputActionsSpace;
 using PlayerSpace;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameControllerSpace
 {
@@ -15,6 +17,7 @@ namespace GameControllerSpace
     
     public class GameController : MonoBehaviour
     {
+        [SerializeField] private Image _aimImage;
         public static GameController Instance;
 
         public bool IsOpenedMenu { get; private set; }
@@ -29,12 +32,19 @@ namespace GameControllerSpace
         {
             InputActionsManager.OnPressedEscapeEvent += OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent += OnPressedUseSmth;
+            InputActionsManager.OnPressedShootingModeEvent += OnPressedShootingMode;
             Car.OnCarWaitActionEvent += OnCarWaitAction;
         }
 
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
+        }
+        
+        private void OnPressedShootingMode()
+        {
+            Player.Instance.IsShootingMode = !Player.Instance.IsShootingMode;
+            _aimImage.gameObject.SetActive(Player.Instance.IsShootingMode);
         }
         
         private void OnPressedUseSmth()
@@ -75,6 +85,7 @@ namespace GameControllerSpace
         {
             InputActionsManager.OnPressedEscapeEvent -= OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent -= OnPressedUseSmth;
+            InputActionsManager.OnPressedShootingModeEvent -= OnPressedShootingMode;
             Car.OnCarWaitActionEvent -= OnCarWaitAction;
         }
     }

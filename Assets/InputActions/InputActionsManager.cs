@@ -20,6 +20,7 @@ namespace InputActionsSpace
         
         public static event Action OnPressedEscapeEvent;
         public static event Action OnPressedUseSmthEvent;
+        public static event Action OnPressedShootingModeEvent;
         
         private void Awake()
         {
@@ -60,12 +61,12 @@ namespace InputActionsSpace
 
         private void SimpleMovementMode(InputAction.CallbackContext obj)
         {
-            Player.Instance.IsShootingMode = false;
+            OnPressedShootingModeEvent?.Invoke();
         }
         
         private void ShootingMovementMode(InputAction.CallbackContext obj)
         {
-            Player.Instance.IsShootingMode = true;
+            OnPressedShootingModeEvent?.Invoke();
         }
 
         private void Escape(InputAction.CallbackContext obj)

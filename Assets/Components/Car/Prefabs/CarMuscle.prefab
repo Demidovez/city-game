@@ -110,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 2357330891114030199}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.194, y: 0.794, z: 0}
-  m_LocalScale: {x: 0.77938765, y: 1.3393513, z: 1.3446637}
+  m_LocalPosition: {x: -1.42, y: 0.794, z: 0}
+  m_LocalScale: {x: 1.0222448, y: 1.3393513, z: 1.3446637}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7750661484003511806}
@@ -816,8 +816,6 @@ GameObject:
   - component: {fileID: 1581049097349277305}
   - component: {fileID: 6844462958645017904}
   - component: {fileID: 8354492557554112362}
-  - component: {fileID: 4312333978676944576}
-  - component: {fileID: 7774619645026223894}
   m_Layer: 0
   m_Name: CarMuscle
   m_TagString: Untagged
@@ -960,35 +958,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pressEText: {fileID: 3000608340442252018}
---- !u!114 &4312333978676944576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6828070659734422672}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89dd9804083e21a4f9e09cdf8ccc0f91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minMoveSpeed: 0.75
-  _maxMoveSpeed: 1.5
-  _stopDistance: 1
-  _rotationSpeed: 120
-  _debugPointName: 
---- !u!114 &7774619645026223894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6828070659734422672}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaecac3071acf1a4d9444ccaab257a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8697344302289091505
 GameObject:
   m_ObjectHideFlags: 0

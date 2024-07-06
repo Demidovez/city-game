@@ -22,8 +22,8 @@ namespace PlayerSpace
         private ObjectPool _decalsPool;
         
         private Transform _cameraTransform;
-        
-        private void Awake()
+
+        private void Start()
         {
             _cameraTransform = Camera.main?.transform;
 

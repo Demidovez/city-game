@@ -1,8 +1,6 @@
-using System;
 using CarSpace;
 using InputActionsSpace;
 using PlayerSpace;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,9 +18,11 @@ namespace GameControllerSpace
         [SerializeField] private Image _aimImage;
         public static GameController Instance;
 
+        private Car _currentCar;
+
         public bool IsOpenedMenu { get; private set; }
         public PossibleActionEnum PossibleAction { get; private set; }
-
+        
         private void Awake()
         {
             Instance = this;
@@ -33,6 +33,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedEscapeEvent += OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent += OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent += OnPressedShootingMode;
+            
             Car.OnCarWaitActionEvent += OnCarWaitAction;
         }
 
@@ -52,11 +53,11 @@ namespace GameControllerSpace
             switch (PossibleAction)
             {
                 case PossibleActionEnum.GetInCar:
-                    Player.Instance.GetInCar = true;
+                    Player.Instance.PutInCar(true, _currentCar);
                     PossibleAction = PossibleActionEnum.GetOutCar;
                     break;
                 case PossibleActionEnum.GetOutCar:
-                    Player.Instance.GetInCar = false;
+                    Player.Instance.PutInCar(false, _currentCar);
                     PossibleAction = PossibleActionEnum.GetInCar;
                     break;
                 default:
@@ -64,7 +65,7 @@ namespace GameControllerSpace
             }
         }
 
-        private void OnCarWaitAction(bool isWait)
+        private void OnCarWaitAction(bool isWait, Car car)
         {
             if (isWait)
             {
@@ -74,6 +75,8 @@ namespace GameControllerSpace
             {
                 PossibleAction = PossibleActionEnum.None;
             }
+
+            _currentCar = car;
         }
         
         private void OnToggleMenu()
@@ -86,6 +89,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedEscapeEvent -= OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent -= OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent -= OnPressedShootingMode;
+            
             Car.OnCarWaitActionEvent -= OnCarWaitAction;
         }
     }

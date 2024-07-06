@@ -85,7 +85,7 @@ namespace CarSpace
 
         private void SetDestination(WayPoint wayPoint)
         {
-            _car.WantGoCrossRoad = wayPoint.IsCrossingRoad;
+            // _car.WantGoCrossRoad = wayPoint.IsCrossingRoad;
             _carMovement.SetDestination(wayPoint.GetPosition(), wayPoint.name);
         }
     }  

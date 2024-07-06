@@ -8,18 +8,27 @@ namespace CarSpace
     public class Car : MonoBehaviour, ITriggerAreaSubscriber
     {
         [SerializeField] private GameObject _pressEText;
-        public bool ShouldStopAndWait { get; set; }
-        public bool WantGoCrossRoad { get; set; }
+        public Transform DriverSeat;
+
+        public static Action<bool, Car> OnCarWaitActionEvent;
+
+        public bool IsDriving
+        {
+            get => _isDriving;
+            set
+            {
+                _isDriving = value; 
+                _pressEText.SetActive(!value);
+            }
+        }
+
+        private bool _isDriving;
         
-        public bool HasDriver { get; private set; }
-
-        public static Action<bool> OnCarWaitActionEvent;
-
         public void OnTriggerAreaEnter(GameObject target, Collider other)
         {
             if (other.gameObject == Player.Instance.gameObject)
             {
-                OnCarWaitActionEvent?.Invoke(true);
+                OnCarWaitActionEvent?.Invoke(true, this);
                 _pressEText.SetActive(true);
             }
         }
@@ -28,7 +37,7 @@ namespace CarSpace
         {
             if (other.gameObject == Player.Instance.gameObject)
             {
-                OnCarWaitActionEvent?.Invoke(false);
+                OnCarWaitActionEvent?.Invoke(false, null);
                 _pressEText.SetActive(false);
             }
         }

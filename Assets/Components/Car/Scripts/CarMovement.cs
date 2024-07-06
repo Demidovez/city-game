@@ -26,12 +26,12 @@ namespace CarSpace
 
         private void Update()
         {
-            if (_car.ShouldStopAndWait)
-            {
-                _characterController.Move(Vector3.zero);
-                
-                return;
-            }
+            // if (_car.ShouldStopAndWait)
+            // {
+            //     _characterController.Move(Vector3.zero);
+            //     
+            //     return;
+            // }
             
             if (transform.position != _destination)
             {

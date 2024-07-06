@@ -37,6 +37,11 @@ namespace PlayerSpace
         
         private void Update()
         {
+            if (Player.Instance.LockMovement)
+            {
+                return;
+            }
+            
             ApplyGravity();
             ApplyRotation();
             ApplyMovement();
@@ -79,7 +84,7 @@ namespace PlayerSpace
         
         private void ApplyRotation()
         {
-            if (MoveInput == Vector2.zero)
+            if (MoveInput == Vector2.zero && !Player.Instance.IsShootingMode)
             {
                 return;
             }

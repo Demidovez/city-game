@@ -2,13 +2,13 @@ using System;
 using PlayerSpace;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
 namespace InputActionsSpace
 {
     public class InputActionsManager : MonoBehaviour
     {
         private PlayerInput _playerInput;
+        
         private InputAction _actionRun;
         private InputAction _actionJump;
         private InputAction _actionWalk;
@@ -88,7 +88,7 @@ namespace InputActionsSpace
 
         private void Shooting(InputAction.CallbackContext obj)
         {
-            Player.Instance.Shoot();
+            Player.Instance.TryShoot();
         }
 
         private void OnDisable()

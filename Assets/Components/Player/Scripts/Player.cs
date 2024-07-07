@@ -12,7 +12,7 @@ namespace PlayerSpace
         private bool _shouldCheckPosition;
         
         public bool IsShootingMode { get; set; }
-        public bool GetInCar { get; private set; }
+        public bool IsSittingInCar { get; private set; }
         public bool LockMovement { get; private set; }
 
         private void Awake()
@@ -24,38 +24,45 @@ namespace PlayerSpace
 
         private void Update()
         {
+            LockMovement = IsSittingInCar;
+            
+            CorrectPosition();
+        }
+
+        private void CorrectPosition()
+        {
             if (_shouldCheckPosition && Vector3.Distance(transform.position, _targetPosition) > 0.1f )
             {
-                transform.position = Vector3.Lerp(transform.position, _targetPosition, (GetInCar ? 3f : 1f) * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, _targetPosition, (IsSittingInCar ? 3f : 1f) * Time.deltaTime);
                 LockMovement = true;
             }
             else
             {
                 _shouldCheckPosition = false;
-                LockMovement = GetInCar;
             }
         }
 
-        public void PutInCar(bool isPutIn, Car currentCar)
+        public void UseCar(bool isUsing, Car currentCar)
         {
-            GetInCar = isPutIn;
+            IsSittingInCar = isUsing;
 
-            if (isPutIn)
+            if (isUsing)
             {
                 _targetPosition = currentCar.DriverSeat.position;
                 transform.rotation = Quaternion.LookRotation(currentCar.transform.forward);
             }
             else
             {
-                _targetPosition = new Vector3(transform.position.x, 0, transform.position.z - 0.8f);
+                _targetPosition = transform.position + transform.TransformDirection(Vector3.left);
+                _targetPosition.y = 0;
             }
 
-            currentCar.IsDriving = isPutIn;
+            currentCar.SetDriver(isUsing ? this : null);
             
             _shouldCheckPosition = true;
         }
 
-        public void Shoot()
+        public void TryShoot()
         {
             if (!IsShootingMode)
             {

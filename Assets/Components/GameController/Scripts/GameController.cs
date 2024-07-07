@@ -20,8 +20,8 @@ namespace GameControllerSpace
 
         private Car _currentCar;
 
-        public bool IsOpenedMenu { get; private set; }
-        public PossibleActionEnum PossibleAction { get; private set; }
+        private bool IsOpenedMenu { get; set; }
+        private PossibleActionEnum PossibleAction { get; set; }
         
         private void Awake()
         {
@@ -34,7 +34,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedUseSmthEvent += OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent += OnPressedShootingMode;
             
-            Car.OnCarWaitActionEvent += OnCarWaitAction;
+            CarUsingChecker.OnCarWaitActionEvent += OnCarWaitAction;
         }
 
         private void Start()
@@ -53,13 +53,14 @@ namespace GameControllerSpace
             switch (PossibleAction)
             {
                 case PossibleActionEnum.GetInCar:
-                    Player.Instance.PutInCar(true, _currentCar);
+                    Player.Instance.UseCar(true, _currentCar);
                     PossibleAction = PossibleActionEnum.GetOutCar;
                     break;
                 case PossibleActionEnum.GetOutCar:
-                    Player.Instance.PutInCar(false, _currentCar);
+                    Player.Instance.UseCar(false, _currentCar);
                     PossibleAction = PossibleActionEnum.GetInCar;
                     break;
+                case PossibleActionEnum.None:
                 default:
                     return;
             }
@@ -67,14 +68,7 @@ namespace GameControllerSpace
 
         private void OnCarWaitAction(bool isWait, Car car)
         {
-            if (isWait)
-            {
-                PossibleAction = PossibleActionEnum.GetInCar;
-            }
-            else
-            {
-                PossibleAction = PossibleActionEnum.None;
-            }
+            PossibleAction = isWait ? PossibleActionEnum.GetInCar : PossibleActionEnum.None;
 
             _currentCar = car;
         }
@@ -90,7 +84,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedUseSmthEvent -= OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent -= OnPressedShootingMode;
             
-            Car.OnCarWaitActionEvent -= OnCarWaitAction;
+            CarUsingChecker.OnCarWaitActionEvent -= OnCarWaitAction;
         }
     }
 }

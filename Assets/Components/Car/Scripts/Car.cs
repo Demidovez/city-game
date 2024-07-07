@@ -11,12 +11,14 @@ namespace CarSpace
         public UpdatedDriverDelegate OnUpdatedDriver;
 
         private Player _driver;
-
-        public void SetDriver(Player driver)
+        public Player Driver
         {
-            _driver = driver;
-
-            OnUpdatedDriver?.Invoke(driver);
+            get => _driver;
+            set
+            {
+                _driver = value;
+                OnUpdatedDriver?.Invoke(value);
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ namespace CarSpace
         private Car _car;
         private Wheel[] _wheels;
         private Rigidbody _rigidBody;
+        private bool _isSeatedDriver;
         
         private void Awake()
         {
@@ -41,12 +42,20 @@ namespace CarSpace
         {
             if (!_car.Driver)
             {
+                _isSeatedDriver = false;
                 return false;
             }
 
-            if (Vector3.Distance(_car.Driver.transform.position, _car.DriverSeat.position) > 3f)
+            float driverDistance = Vector3.Distance(_car.Driver.transform.position, _car.DriverSeat.position);
+
+            if (!_isSeatedDriver && driverDistance > 0.1f)
             {
                 return false;
+            }
+
+            if (driverDistance <= 0.1f)
+            {
+                _isSeatedDriver = true;
             }
 
             return true;

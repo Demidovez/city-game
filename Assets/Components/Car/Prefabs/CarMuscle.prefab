@@ -1191,6 +1191,7 @@ MonoBehaviour:
   _maxSpeed: 30
   _maxSteeringSpeed: 15
   _steeringRange: 45
+  _steeringWheelsSpeed: 4
 --- !u!1 &6906847922699462069
 GameObject:
   m_ObjectHideFlags: 0

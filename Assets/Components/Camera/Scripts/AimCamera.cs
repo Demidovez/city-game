@@ -32,13 +32,11 @@ namespace CameraSpace
         private void CancelAim(InputAction.CallbackContext obj)
         {
             _aimCamera.Priority -= _priorityBoost;
-            // _secondCamera.transform.position = _aimCamera.transform.position;
         }
 
         private void StartAim(InputAction.CallbackContext obj)
         {
             _aimCamera.Priority += _priorityBoost;
-            // _aimCamera.transform.position = _secondCamera.transform.position;
         }
 
         private void OnDisable()

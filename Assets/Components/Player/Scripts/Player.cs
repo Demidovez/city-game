@@ -1,15 +1,19 @@
 using CarSpace;
+using Cinemachine;
 using UnityEngine;
 
 namespace PlayerSpace
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] private CinemachineVirtualCamera _carCamera;
+        
         public static Player Instance;
         
         private PlayerShooting _playerShooting;
         private Vector3 _targetPosition;
         private bool _shouldCheckPosition;
+        
         
         public bool IsShootingMode { get; set; }
         public bool IsSittingInCar { get; private set; }
@@ -50,11 +54,13 @@ namespace PlayerSpace
             {
                 _targetPosition = currentCar.DriverSeat.position;
                 transform.rotation = Quaternion.LookRotation(currentCar.transform.forward);
+                _carCamera.Priority += 10;
             }
             else
             {
                 _targetPosition = transform.position + transform.TransformDirection(Vector3.left);
                 _targetPosition.y = 0;
+                _carCamera.Priority -= 10;
             }
 
             currentCar.Driver = isUsing ? this : null;

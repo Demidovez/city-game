@@ -12,6 +12,7 @@ namespace CarSpace
         [SerializeField] private float _maxSpeed = 5f;
         [SerializeField] private float _maxSteeringSpeed = 10f;
         [SerializeField] private float _steeringRange = 15f;
+        [SerializeField] private float _steeringWheelsSpeed = 2f;
         
         private Car _car;
         private Wheel[] _wheels;
@@ -67,7 +68,7 @@ namespace CarSpace
             {
                 if (wheel.Steerable)
                 {
-                    wheel.WheelCollider.steerAngle = hAxis * currentSteerRange;
+                    wheel.WheelCollider.steerAngle = Mathf.Lerp(wheel.WheelCollider.steerAngle, hAxis * currentSteerRange, _steeringWheelsSpeed * Time.deltaTime);
                 }
 
                 if (isAcceleration && wheel.Motorized)

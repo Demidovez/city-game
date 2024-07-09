@@ -86,7 +86,7 @@ namespace PedestrianSpace
             _direction = direction;
         }
 
-        private void SetDestination(WayPoint wayPoint)
+        protected override void SetDestination(WayPoint wayPoint)
         {
             _pedestrian.WantGoCrossRoad = wayPoint.IsCrossingRoad;
             _pedestrianMovement.SetDestination(wayPoint.GetPosition(), wayPoint.name);

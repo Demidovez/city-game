@@ -1016,6 +1016,8 @@ GameObject:
   - component: {fileID: 8354492557554112362}
   - component: {fileID: 2722629305786126294}
   - component: {fileID: 5848986015595924020}
+  - component: {fileID: 4081930078725770171}
+  - component: {fileID: 2930317851248710943}
   m_Layer: 0
   m_Name: CarMuscle
   m_TagString: Untagged
@@ -1192,6 +1194,37 @@ MonoBehaviour:
   _maxSteeringSpeed: 15
   _steeringRange: 45
   _steeringWheelsSpeed: 4
+--- !u!114 &4081930078725770171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828070659734422672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f40ebf44c813442b3c97b9a5db8091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2930317851248710943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828070659734422672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5265cc13f6527ed41ab420f3c1f273d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _motorTorque: 500
+  _breakTorque: 300
+  _maxSpeed: 5
+  _maxSteeringSpeed: 100
+  _steeringRange: 90
+  _steeringWheelsSpeed: 2
+  _debugPointName: 
 --- !u!1 &6906847922699462069
 GameObject:
   m_ObjectHideFlags: 0

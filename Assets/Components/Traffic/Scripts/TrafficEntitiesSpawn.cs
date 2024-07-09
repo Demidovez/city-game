@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using PedestrianSpace;
 using UnityEngine;
 using WayPointsSpace;
 using Random = UnityEngine.Random;
@@ -21,7 +19,7 @@ namespace TrafficSpace
         private IEnumerator Spawn()
         {
             int count = 0;
-
+            
             while (count < _countEntities)
             {
                 Transform wayPointTransform = transform.GetChild(Random.Range(0, transform.childCount - 1));

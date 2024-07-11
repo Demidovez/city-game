@@ -1218,12 +1218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5265cc13f6527ed41ab420f3c1f273d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _motorTorque: 500
-  _breakTorque: 300
-  _maxSpeed: 5
-  _maxSteeringSpeed: 100
-  _steeringRange: 90
-  _steeringWheelsSpeed: 2
+  _speedMove: 300
+  _speedRotation: 2
   _debugPointName: 
 --- !u!1 &6906847922699462069
 GameObject:

@@ -1,3 +1,4 @@
+using PlayerSpace;
 using UnityEngine;
 using WayPointsSpace;
 using WheelSpace;
@@ -6,21 +7,15 @@ namespace CarSpace
 {
     public class CarMovementByNavigation : MonoBehaviour
     {
-        // [SerializeField] private float _minMoveSpeed = 0.75f;
-        // [SerializeField] private float _maxMoveSpeed = 1.5f;
-        
-        [SerializeField] private float _motorTorque = 500f;
-        [SerializeField] private float _breakTorque = 300f;
-        [SerializeField] private float _maxSpeed = 5f;
-        [SerializeField] private float _maxSteeringSpeed = 10f;
-        [SerializeField] private float _steeringRange = 15f;
-        [SerializeField] private float _steeringWheelsSpeed = 2f;
+        [SerializeField] private float _speedMove = 5f;
+        [SerializeField] private float _speedRotation = 5f;
+        [SerializeField] private float _gravity = -40f;
         [SerializeField] private string _debugPointName;
         
         private Car _car;
-        private Wheel[] _wheels;
         private Rigidbody _rigidBody;
         private Vector3 _destination;
+        private Vector3 _secondDestination;
 
         public bool IsReachedDestination { get; private set; }
         
@@ -28,12 +23,14 @@ namespace CarSpace
         {
             _car = GetComponent<Car>();
             _rigidBody = GetComponent<Rigidbody>();
-
-            _wheels = GetComponentsInChildren<Wheel>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
+            if (_car.Driver == Player.Instance)
+            {
+                return;
+            }
             
             if (Vector3.Distance(_destination, transform.position) < 2f)
             {
@@ -45,42 +42,31 @@ namespace CarSpace
         
         private void ApplyMovement()
         {
-            float angle = Vector3.SignedAngle(transform.forward, (_destination - transform.position).normalized, Vector3.up);
             
-            float vAxis = 1;
-            float hAxis = Mathf.Clamp(angle / 90.0f, -1, 1);
+            Vector3 moveDirection = (_destination - transform.position).normalized;
+            Vector3 lookDirection = new Vector3(_secondDestination.x, 0f, _secondDestination.z) - new Vector3(transform.position.x, 0f, transform.position.z); 
             
-            float forwardSpeed = Vector3.Dot(transform.forward, _rigidBody.velocity);
-            float speedFactor = Mathf.InverseLerp(0, _maxSpeed, forwardSpeed);
-            float currentMotorTorque = Mathf.Lerp(_motorTorque, 0, speedFactor);
-            float currentSteerRange = Mathf.Lerp(_steeringRange, _maxSteeringSpeed, speedFactor);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), _speedRotation * Time.fixedDeltaTime);
 
-            bool isAcceleration = Mathf.Approximately(Mathf.Sign(vAxis), Mathf.Sign(forwardSpeed));
+            Vector3 velocity = moveDirection * (Time.fixedDeltaTime * _speedMove);
 
-            foreach (var wheel in _wheels)
+            if (transform.position.y > 1)
             {
-                if (wheel.Steerable)
-                {
-                    wheel.WheelCollider.steerAngle = Mathf.Lerp(wheel.WheelCollider.steerAngle, hAxis * currentSteerRange, _steeringWheelsSpeed * Time.deltaTime);
-                }
-
-                if (isAcceleration && wheel.Motorized)
-                {
-                    wheel.WheelCollider.motorTorque = vAxis * currentMotorTorque;
-                    wheel.WheelCollider.brakeTorque = 0;
-                }
-                else
-                {
-                    wheel.WheelCollider.brakeTorque = Mathf.Abs(vAxis) * _breakTorque;
-                    wheel.WheelCollider.motorTorque = 0;
-                }
+                velocity.y = _gravity;
             }
+            else
+            {
+                velocity.y = -1f;
+            }
+            
+            _rigidBody.velocity = velocity;
         }
 
-        public void SetDestination(Vector3 position, string debugPointName)
+        public void SetDestination(Vector3 position, Vector3 secondPosition, string debugPointName)
         {
             _debugPointName = debugPointName;
             _destination = position;
+            _secondDestination = secondPosition;
             
             IsReachedDestination = false;
         }

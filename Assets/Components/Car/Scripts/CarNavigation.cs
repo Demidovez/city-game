@@ -1,3 +1,4 @@
+using PlayerSpace;
 using UnityEngine;
 using WayPointsSpace;
 
@@ -23,7 +24,7 @@ namespace CarSpace
         
         private void Update()
         {
-            if (_car.Driver)
+            if (_car.Driver == Player.Instance)
             {
                 return;
             }
@@ -92,17 +93,20 @@ namespace CarSpace
             // _car.WantGoCrossRoad = wayPoint.IsCrossingRoad;
 
             Vector3 position;
+            Vector3 secondPosition;
 
             if (_direction == 0)
             {
                 position = wayPoint.RightEdge;
+                secondPosition = wayPoint.Next.RightEdge;
             }
             else
             {
                 position = wayPoint.LeftEdge;
+                secondPosition = wayPoint.Previous.LeftEdge;
             }
             
-            _carMovement.SetDestination(position, wayPoint.name);
+            _carMovement.SetDestination(position, secondPosition, wayPoint.name);
         }
     }
 }

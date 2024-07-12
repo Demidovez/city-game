@@ -79,13 +79,15 @@ namespace WayPointsSpace
             GameObject newWayPointObj = new GameObject("WayPoint_" + WayPointRoot.childCount, typeof(WayPoint));
             newWayPointObj.transform.SetParent(WayPointRoot, false);
 
-            newWayPointObj.TryGetComponent(out WayPoint newWayPoint);
-            selectedWayPoint.Branches.Add(newWayPoint);
+            if (newWayPointObj.TryGetComponent(out WayPoint newWayPoint))
+            {
+                selectedWayPoint.Branches.Add(newWayPoint);
             
-            newWayPoint.transform.position = selectedWayPoint.transform.position + GenerateOffsetFrom(selectedWayPoint, selectedWayPoint.Next);
-            newWayPoint.transform.forward = selectedWayPoint.transform.forward;
+                newWayPoint.transform.position = selectedWayPoint.transform.position + GenerateOffsetFrom(selectedWayPoint, selectedWayPoint.Next);
+                newWayPoint.transform.forward = selectedWayPoint.transform.forward;
             
-            Selection.activeGameObject = newWayPointObj;
+                Selection.activeGameObject = newWayPointObj;
+            }
         }
 
         private Vector3 GenerateOffsetFrom(WayPoint fromPoint, WayPoint toPoint = null)

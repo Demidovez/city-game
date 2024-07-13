@@ -40,52 +40,85 @@ namespace CarSpace
 
                 if (shouldUseBranch)
                 {
-                    _currentWayPoint = _currentWayPoint.Branches[Random.Range(0, _currentWayPoint.Branches.Count - 1)];
+                     SetCurrentWayPoint(_currentWayPoint.Branches[Random.Range(0, _currentWayPoint.Branches.Count)]);
                 }
                 else if (_currentWayPoint.IsCrossingRoad)
                 {
                     if (_currentWayPoint.Next)
                     {
-                        _currentWayPoint = _currentWayPoint.Next;
+                        SetCurrentWayPoint(_currentWayPoint.Next);
                     }
                 }
                 else if (_direction == 0)
                 {
                     if (_currentWayPoint.Next)
                     {
-                        _currentWayPoint = _currentWayPoint.Next;
+                        SetCurrentWayPoint(_currentWayPoint.Next);
                     }
                     else
                     {
                         _direction = 1;
-                        _currentWayPoint = _currentWayPoint.Previous;
+                        SetCurrentWayPoint(_currentWayPoint.Previous);
                     }
                 }
                 else
                 {
                     if (_currentWayPoint.Previous)
                     {
-                        _currentWayPoint = _currentWayPoint.Previous;
+                        SetCurrentWayPoint(_currentWayPoint.Previous);
                     }
                     else
                     {
                         _direction = 0;
-                        _currentWayPoint = _currentWayPoint.Next;
+                        SetCurrentWayPoint(_currentWayPoint.Next);
                     }
                 }
-                
+
+                CheckChangeDirectionFromBranch();
                 SetDestination(_currentWayPoint);
             }
         }
         
         public override void SetCurrentWayPoint(WayPoint wayPoint)
         {
+            if (_currentWayPoint)
+            {
+                _currentWayPoint.ConnectedEntity = null;
+                _currentWayPoint.IsDisallowSpawn = false;
+            }
+            
             _currentWayPoint = wayPoint;
+            _currentWayPoint.ConnectedEntity = this;
+
+            _currentWayPoint.IsDisallowSpawn = true;
         }
 
         public override void SetDirection(int direction)
         {
             _direction = direction;
+        }
+
+        private void CheckChangeDirectionFromBranch()
+        {
+            if (_direction == 0 && _currentWayPoint.Next)
+            {
+                bool isReverseDirection = Vector3.Dot(_currentWayPoint.transform.forward, _currentWayPoint.Next.transform.forward) < 0;
+
+                if (isReverseDirection)
+                {
+                    _direction = 1;
+                    SetCurrentWayPoint(_currentWayPoint.Next.Previous);
+                }
+            } else if (_direction == 1 && _currentWayPoint.Previous)
+            {
+                bool isReverseDirection = Vector3.Dot(_currentWayPoint.transform.forward , _currentWayPoint.Previous.transform.forward) < 0;
+                    
+                if (isReverseDirection)
+                {
+                    _direction = 0;
+                    SetCurrentWayPoint(_currentWayPoint.Previous.Next);
+                }
+            }
         }
         
         protected override void SetDestination(WayPoint wayPoint)
@@ -98,12 +131,12 @@ namespace CarSpace
             if (_direction == 0)
             {
                 position = wayPoint.RightEdge;
-                secondPosition = wayPoint.Next.RightEdge;
+                secondPosition = wayPoint.Next ? wayPoint.Next.RightEdge : position;
             }
             else
             {
                 position = wayPoint.LeftEdge;
-                secondPosition = wayPoint.Previous.LeftEdge;
+                secondPosition = wayPoint.Previous ? wayPoint.Previous.LeftEdge : position;
             }
             
             _carMovement.SetDestination(position, secondPosition, wayPoint.name);

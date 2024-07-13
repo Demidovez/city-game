@@ -11,6 +11,9 @@ namespace WayPointsSpace
         public WayPoint Next;
         
         public bool IsCrossingRoad;
+        public bool IsDisallowSpawn;
+        internal EntityNavigation ConnectedEntity = null;
+        
         [Range(0f, 7f)] public float Width = 1f;
         [Range(0f, 1f)] public float BranchRatio = 0.5f;
         public List<WayPoint> Branches;

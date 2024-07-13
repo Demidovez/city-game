@@ -42,11 +42,12 @@ namespace CarSpace
         
         private void ApplyMovement()
         {
-            
             Vector3 moveDirection = (_destination - transform.position).normalized;
             Vector3 lookDirection = new Vector3(_secondDestination.x, 0f, _secondDestination.z) - new Vector3(transform.position.x, 0f, transform.position.z); 
             
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), _speedRotation * Time.fixedDeltaTime);
+            
+            Debug.DrawRay(transform.position, lookDirection);
 
             Vector3 velocity = moveDirection * (Time.fixedDeltaTime * _speedMove);
 
@@ -56,7 +57,7 @@ namespace CarSpace
             }
             else
             {
-                velocity.y = -1f;
+                velocity.y = 0f;
             }
             
             _rigidBody.velocity = velocity;

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using WayPointsSpace;
 using Random = UnityEngine.Random;
@@ -7,7 +8,7 @@ namespace TrafficSpace
 {
     public class TrafficEntitiesSpawn : MonoBehaviour
     {
-        [SerializeField] private GameObject _entityPrefab;
+        [SerializeField] private List<GameObject> _entityPrefabs;
         [SerializeField] private Transform _entitiesContainer;
         [SerializeField] private int _countEntities;
         [SerializeField] private float _delayTimeSpawn = 0.5f;
@@ -56,7 +57,7 @@ namespace TrafficSpace
                     continue;
                 }
                 
-                GameObject entityObj = Instantiate(_entityPrefab, spawnPosition, lookRotation, _entitiesContainer);
+                GameObject entityObj = Instantiate(_entityPrefabs[Random.Range(0, _entityPrefabs.Count)], spawnPosition, lookRotation, _entitiesContainer);
                 entityObj.TryGetComponent(out EntityNavigation entityNavigation);
                 entityNavigation.SetCurrentWayPoint(wayPoint);
                 entityNavigation.SetDirection(direction);

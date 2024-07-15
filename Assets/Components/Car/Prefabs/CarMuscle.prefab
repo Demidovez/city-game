@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1455492166994762658}
   - component: {fileID: 7094049982506002273}
   - component: {fileID: 684817542336226420}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_SteeringW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5914728522253157052}
   - component: {fileID: 407687426536699507}
-  m_Layer: 0
+  - component: {fileID: 1486511796841876534}
+  m_Layer: 2
   m_Name: FrontCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 2204082078718992109}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.04, z: 2.75}
-  m_LocalScale: {x: 2.4841, y: 1.7932, z: 1.1706195}
+  m_LocalPosition: {x: -0.01, y: 1.29, z: 3.77}
+  m_LocalScale: {x: 1.9325391, y: 1.3880826, z: 1.3586282}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7750661484003511806}
@@ -136,6 +137,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1486511796841876534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2204082078718992109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bbb37e4f6c19b44b83d4f6ae97c96fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerSubscriber: {fileID: 6828070659734422672}
 --- !u!1 &2357330891114030199
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +161,7 @@ GameObject:
   - component: {fileID: 7325283350126282535}
   - component: {fileID: 5522238823297626252}
   - component: {fileID: 224499466261077800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerTriggerArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbb37e4f6c19b44b83d4f6ae97c96fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerSubscriber: {fileID: 6828070659734422672}
+  _triggerSubscriber: {fileID: 8976150488023958363}
 --- !u!1 &3000608340442252018
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +228,7 @@ GameObject:
   - component: {fileID: 3808679541711061638}
   - component: {fileID: 2393907222516858408}
   - component: {fileID: 1892577078371631471}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PressEText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +399,7 @@ GameObject:
   - component: {fileID: 3865427216175105299}
   - component: {fileID: 4720943731066144079}
   - component: {fileID: 2158892547142510053}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Wheel_rl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +482,7 @@ GameObject:
   - component: {fileID: 4093822646973206540}
   - component: {fileID: 3973177260957069305}
   - component: {fileID: 4366496568643933969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +565,7 @@ GameObject:
   - component: {fileID: 5248486066207148817}
   - component: {fileID: 5762773969422967724}
   - component: {fileID: 8254148781438920726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Plates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +648,7 @@ GameObject:
   - component: {fileID: 4245976301550570400}
   - component: {fileID: 303687386686597850}
   - component: {fileID: 7596609171078610508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Wheel_fr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +731,7 @@ GameObject:
   - component: {fileID: 8935427637875141003}
   - component: {fileID: 2727298995893003532}
   - component: {fileID: 5714818387170250595}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontRightWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +819,7 @@ GameObject:
   - component: {fileID: 1756286871900366565}
   - component: {fileID: 6916161763994792434}
   - component: {fileID: 4474093418962362736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontLeftWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +907,7 @@ GameObject:
   - component: {fileID: 4774901238156463320}
   - component: {fileID: 5476766606257851706}
   - component: {fileID: 5763706982121610397}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Wheel_fl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +990,7 @@ GameObject:
   - component: {fileID: 675020295818469443}
   - component: {fileID: 5933664849136952359}
   - component: {fileID: 8418644394829452850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackLeftWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,11 +1081,10 @@ GameObject:
   - component: {fileID: 1718975341979678908}
   - component: {fileID: 6412811202765543868}
   - component: {fileID: 8354492557554112362}
-  - component: {fileID: 2722629305786126294}
   - component: {fileID: 5848986015595924020}
   - component: {fileID: 4081930078725770171}
   - component: {fileID: 2930317851248710943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CarMuscle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,6 +1116,7 @@ Transform:
   - {fileID: 4328713781659544764}
   - {fileID: 6447468186346524941}
   - {fileID: 5914728522253157052}
+  - {fileID: 8961953448582359772}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &6857262032178717773
@@ -1217,19 +1231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DriverSeat: {fileID: 4328713781659544764}
---- !u!114 &2722629305786126294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6828070659734422672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90273a3f72112ea4bb94c11bbc8998a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pressEText: {fileID: 3000608340442252018}
 --- !u!114 &5848986015595924020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,6 +1277,9 @@ MonoBehaviour:
   _speedRotation: 2
   _gravity: -40
   _debugPointName: 
+  _carLayer:
+    serializedVersion: 2
+    m_Bits: 392
 --- !u!1 &6906847922699462069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,7 +1289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6447468186346524941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelsColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1322,7 +1326,7 @@ GameObject:
   - component: {fileID: 1455853178609373949}
   - component: {fileID: 496597828221297657}
   - component: {fileID: 1383855199623408042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackRightWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1410,7 +1414,7 @@ GameObject:
   - component: {fileID: 7828773176987914622}
   - component: {fileID: 3516757751587276241}
   - component: {fileID: 2848820117866777635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Veh_Car_Muscle_Wheel_rr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1491,7 +1495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4328713781659544764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeatPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,3 +1517,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7750661484003511806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8976150488023958363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8961953448582359772}
+  - component: {fileID: 8855663685298553174}
+  m_Layer: 8
+  m_Name: CarUsingChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8961953448582359772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976150488023958363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.45, y: 0.59, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7750661484003511806}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8855663685298553174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976150488023958363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90273a3f72112ea4bb94c11bbc8998a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pressEText: {fileID: 3000608340442252018}
+  _car: {fileID: 8354492557554112362}

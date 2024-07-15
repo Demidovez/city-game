@@ -11,6 +11,7 @@ namespace TrafficSpace
         [SerializeField] private Transform _entitiesContainer;
         [SerializeField] private int _countEntities;
         [SerializeField] private float _delayTimeSpawn = 0.5f;
+        [SerializeField] private LayerMask _entityLayer;
 
         private void Start()
         {
@@ -26,9 +27,8 @@ namespace TrafficSpace
                 Transform wayPointTransform = transform.GetChild(Random.Range(0, transform.childCount - 1));
                 wayPointTransform.TryGetComponent(out WayPoint wayPoint);
 
-                if (wayPoint.IsDisallowSpawn)
+                if (wayPoint.IsDisallowSpawn || wayPoint.IsLockSpawn)
                 {
-                    // Debug.Log(1);
                     yield return new WaitForSeconds(_delayTimeSpawn);
                     continue;
                 }
@@ -47,18 +47,14 @@ namespace TrafficSpace
                     spawnPosition = wayPoint.LeftEdge;
                     lookRotation = Quaternion.LookRotation(-wayPoint.transform.forward);
                 }
-
-                // if (Physics.Raycast(spawnPosition, -Vector3.up, out RaycastHit hit,100))
-                // {
-                //     if (hit.collider.TryGetComponent(out EntityNavigation entity))
-                //     {
-                //         Debug.Log(hit.collider.name);
-                //         yield return new WaitForSeconds(_delayTimeSpawn);
-                //         continue;
-                //     }
-                // }
-
+                
                 spawnPosition.y = 0f;
+
+                if (Physics.Raycast(spawnPosition, wayPoint.transform.up, 10, _entityLayer))
+                {
+                    yield return new WaitForSeconds(_delayTimeSpawn);
+                    continue;
+                }
                 
                 GameObject entityObj = Instantiate(_entityPrefab, spawnPosition, lookRotation, _entitiesContainer);
                 entityObj.TryGetComponent(out EntityNavigation entityNavigation);

@@ -12,6 +12,7 @@ namespace TrafficLightSpace
         [SerializeField] private int _greenLightActiveTime = 10;
         [SerializeField] private int _greenLightInactiveTime = 10;
         [SerializeField] private Light _greenLight;
+        [SerializeField] private bool _defaultActive;
 
         private bool _isActiveGreen;
         private readonly List<Pedestrian> _waitPedestrians = new List<Pedestrian>();
@@ -56,10 +57,10 @@ namespace TrafficLightSpace
         {
             while (gameObject)
             {
-                _isActiveGreen = true;
+                _isActiveGreen = _defaultActive;
                 yield return new WaitForSeconds(_greenLightActiveTime);
                 
-                _isActiveGreen = false;
+                _isActiveGreen = !_defaultActive;
                 yield return new WaitForSeconds(_greenLightInactiveTime);
             }
         }

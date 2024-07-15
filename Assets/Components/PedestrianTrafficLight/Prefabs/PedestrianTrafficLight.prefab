@@ -124,7 +124,7 @@ MonoBehaviour:
   _greenLightActiveTime: 10
   _greenLightInactiveTime: 10
   _greenLight: {fileID: 6009813862136184014}
-  _waitAreaCollider: {fileID: 5228611466936872469}
+  _defaultActive: 1
 --- !u!1 &4627521340899091391
 GameObject:
   m_ObjectHideFlags: 0

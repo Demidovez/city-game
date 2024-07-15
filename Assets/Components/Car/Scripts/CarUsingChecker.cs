@@ -8,15 +8,9 @@ namespace CarSpace
     public class CarUsingChecker : MonoBehaviour, ITriggerAreaSubscriber
     {
         [SerializeField] private GameObject _pressEText;
+        [SerializeField] private Car _car;
         
         public static Action<bool, Car> OnCarWaitActionEvent;
-        
-        private Car _car;
-
-        private void Awake()
-        {
-            _car = GetComponent<Car>();
-        }
 
         private void OnEnable()
         {

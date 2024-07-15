@@ -1,3 +1,4 @@
+using System;
 using PlayerSpace;
 using UnityEngine;
 
@@ -10,6 +11,10 @@ namespace CarSpace
         public Transform DriverSeat;
         public UpdatedDriverDelegate OnUpdatedDriver;
 
+        public bool ShouldStopAndWait { get; set; }
+        public bool WantGoCrossRoad { get; set; }
+        public bool IsMoving => _rigidBody.velocity != Vector3.zero;
+
         private Player _driver;
         public Player Driver
         {
@@ -19,6 +24,13 @@ namespace CarSpace
                 _driver = value;
                 OnUpdatedDriver?.Invoke(value);
             }
+        }
+
+        private Rigidbody _rigidBody;
+
+        private void Start()
+        {
+            _rigidBody = GetComponent<Rigidbody>();
         }
     }
 }

@@ -123,7 +123,7 @@ namespace CarSpace
         
         protected override void SetDestination(WayPoint wayPoint)
         {
-            // _car.WantGoCrossRoad = wayPoint.IsCrossingRoad;
+            _car.WantGoCrossRoad = wayPoint.IsCrossingRoad;
 
             Vector3 position;
             Vector3 secondPosition;

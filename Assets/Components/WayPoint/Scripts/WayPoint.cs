@@ -12,6 +12,7 @@ namespace WayPointsSpace
         
         public bool IsCrossingRoad;
         public bool IsDisallowSpawn;
+        public bool IsLockSpawn;
         internal EntityNavigation ConnectedEntity = null;
         
         [Range(0f, 7f)] public float Width = 1f;

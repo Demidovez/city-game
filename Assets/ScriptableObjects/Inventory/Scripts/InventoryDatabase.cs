@@ -17,7 +17,7 @@ namespace InventoryScriptableObjectSpace
 
         public void OnAfterDeserialize()
         {
-            // Records = new List<InventoryItemSO>();
+            Records = new List<InventoryItemSO>();
             
             foreach (var inventoryItemSO in Items)
             {

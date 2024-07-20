@@ -17,10 +17,12 @@ namespace InputActionsSpace
         private InputAction _actionSimpleMovementMode;
         private InputAction _actionShootingMovementMode;
         private InputAction _actionUseSmth;
+        private InputAction _actionShowInventory;
         
         public static event Action OnPressedEscapeEvent;
         public static event Action OnPressedUseSmthEvent;
         public static event Action OnPressedShootingModeEvent;
+        public static event Action OnPressedShowInventoryEvent;
         
         private void Awake()
         {
@@ -34,6 +36,7 @@ namespace InputActionsSpace
             _actionSimpleMovementMode = _playerInput.actions["SimpleMovementMode"];
             _actionShootingMovementMode = _playerInput.actions["ShootingMovementMode"];
             _actionUseSmth = _playerInput.actions["UseSmth"];
+            _actionShowInventory = _playerInput.actions["ShowInventory"];
         }
         
         private void OnEnable()
@@ -47,11 +50,17 @@ namespace InputActionsSpace
             _actionSimpleMovementMode.performed += SimpleMovementMode;
             _actionShootingMovementMode.performed += ShootingMovementMode;
             _actionUseSmth.performed += UseSmth;
+            _actionShowInventory.performed += ShowInventory;
         }
-        
+
         private void Update()
         {
             PlayerMovement.Instance.IsWalking = _actionWalk.IsPressed();
+        }
+        
+        private void ShowInventory(InputAction.CallbackContext obj)
+        {
+            OnPressedShowInventoryEvent?.Invoke();
         }
 
         private void UseSmth(InputAction.CallbackContext obj)
@@ -102,6 +111,7 @@ namespace InputActionsSpace
             _actionSimpleMovementMode.performed -= SimpleMovementMode;
             _actionShootingMovementMode.performed -= ShootingMovementMode;
             _actionUseSmth.performed -= UseSmth;
+            _actionShowInventory.performed -= ShowInventory;
         }
     }
 }

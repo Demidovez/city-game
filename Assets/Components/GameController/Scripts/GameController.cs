@@ -1,4 +1,5 @@
 using CarSpace;
+using Cinemachine;
 using InputActionsSpace;
 using PlayerSpace;
 using UnityEngine;
@@ -15,13 +16,16 @@ namespace GameControllerSpace
     
     public class GameController : MonoBehaviour
     {
-        [SerializeField] private Image _aimImage;
         public static GameController Instance;
-
+        
+        [SerializeField] private Image _aimImage;
+        [SerializeField] private GameObject _inventoryObj;
+        
         private Car _currentCar;
-
         private bool IsOpenedMenu { get; set; }
+        private bool IsOpenedInventory { get; set; }
         private PossibleActionEnum PossibleAction { get; set; }
+        private CinemachineBrain _cameraBrain;
         
         private void Awake()
         {
@@ -33,6 +37,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedEscapeEvent += OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent += OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent += OnPressedShootingMode;
+            InputActionsManager.OnPressedShowInventoryEvent += OnPressedShowInventory;
             
             CarUsingChecker.OnCarWaitActionEvent += OnCarWaitAction;
         }
@@ -40,6 +45,24 @@ namespace GameControllerSpace
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
+
+            _cameraBrain = Camera.main?.GetComponent<CinemachineBrain>();
+        }
+        
+        private void OnPressedShowInventory()
+        {
+            IsOpenedInventory = !IsOpenedInventory;
+
+            LockCamera(!IsOpenedInventory);
+            
+            Cursor.lockState = IsOpenedInventory ? CursorLockMode.Confined : CursorLockMode.Locked; 
+            
+            _inventoryObj.SetActive(IsOpenedInventory);
+        }
+
+        private void LockCamera(bool isLock)
+        {
+            _cameraBrain.ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineInputProvider>().enabled = isLock;
         }
         
         private void OnPressedShootingMode()
@@ -83,6 +106,7 @@ namespace GameControllerSpace
             InputActionsManager.OnPressedEscapeEvent -= OnToggleMenu;
             InputActionsManager.OnPressedUseSmthEvent -= OnPressedUseSmth;
             InputActionsManager.OnPressedShootingModeEvent -= OnPressedShootingMode;
+            InputActionsManager.OnPressedShowInventoryEvent -= OnPressedShowInventory;
             
             CarUsingChecker.OnCarWaitActionEvent -= OnCarWaitAction;
         }
